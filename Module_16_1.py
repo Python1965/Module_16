@@ -39,7 +39,7 @@ async def get_admin() -> dict:
     return {"message": "Вы вошли как администратор"}
 
 @app.get("/user/{username}/{age}")
-async def get_user(username: str, age: int) -> dict:
+async def get_user_data(username: str, age: int) -> dict:
     return {"Имя:": username, "Возраст:": age}
     #Имя: < username >, Возраст: < age > ".
 
