@@ -46,13 +46,13 @@ async def get_admin() -> dict:
 
 @app.get("/user/{username}/{age}")
 #async def get_user_data(username: str, age: int) -> dict:
-async def get_user_data(username: Annotated[str, Path(..., min_length=5, max_length=20, description="Enter username")],
-                        age: Annotated[int, Path(..., ge=18, le=120, description="Enter age")]) -> dict:
+async def get_user_data(username: Annotated[str, Path(..., min_length=5, max_length=20, description="Enter username", example="UrbanUser")],
+                        age: Annotated[int, Path(..., ge=18, le=120, description="Enter age", example=24)]) -> dict:
     return {"Имя": username, "Возраст": age}
 
 
 @app.get("/user/{user_id}")
-async def get_user(user_id: Annotated[int, Path(..., ge=1, le=100, title="User ID", description="Enter User ID")]) -> dict:
+async def get_user(user_id: Annotated[int, Path(..., ge=1, le=100, title="User ID", description="Enter User ID", example=1)]) -> dict:
     return {"user_id": f"Вы вошли как пользователь № {user_id}"}
 
 
