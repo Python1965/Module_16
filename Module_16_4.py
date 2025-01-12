@@ -64,7 +64,11 @@ def get_users() -> List[User]:
 async def create_user(username: Annotated[str, Path(..., min_length=5, max_length=20, description="Enter username", examples="UrbanUser")],
                       age: Annotated[int, Path(..., ge=18, le=120, description="Enter age", examples=24)]) -> User:
 
-    new_id= str(int(max(users_db, key=int)) + 1) if users else 1
+    if len(users) != 0:
+        new_id = len(users) + 1
+    else:
+        new_id = 1
+
     new_user = User(id=new_id, username=username, age=age)
     users.append(new_user)
     return new_user
@@ -72,7 +76,7 @@ async def create_user(username: Annotated[str, Path(..., min_length=5, max_lengt
 
 # Запрос на изменение данных пользователя
 @app.put('/user/{user_id}/{username}/{age}')
-async def update_user(user_id: Annotated[str, Path(..., title="User ID", description="Enter User ID", examples=1)],
+async def update_user(user_id: Annotated[int, Path(..., ge=1, le=100, title="User ID", description="Enter User ID", examples=1)],
                       username: Annotated[str, Path(..., min_length=5, max_length=20, description="Enter username", examples="UrbanUser")],
                       age: Annotated[int, Path(..., ge=18, le=120, description="Enter age", examples=24)]) -> User:
 
@@ -87,7 +91,7 @@ async def update_user(user_id: Annotated[str, Path(..., title="User ID", descrip
 
 # Запрос на удаление конкретного пользователя
 @app.delete('/user/{user_id}')
-async def delete_user(user_id: Annotated[str, Path(..., title="User ID", description="Enter User ID", examples=1)]) -> User:
+async def delete_user(user_id: Annotated[int, Path(..., ge=1, le=100, title="User ID", description="Enter User ID", examples=1)]) -> User:
 
     for i, user in enumerate(users):
         if user.id == user_id:
