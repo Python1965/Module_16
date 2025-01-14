@@ -31,18 +31,20 @@ app = FastAPI()
 
 # Определение базового маршрута
 @app.get("/")
-async def root() -> dict:
-    return {"message": "Главная страница"}
+async def root() -> str:
+    return "Главная страница"
 
 @app.get("/user/admin")
-async def get_admin() -> dict:
-    return {"message": "Вы вошли как администратор"}
+async def get_admin() -> str:
+    return "Вы вошли как администратор"
 
 @app.get("/user/{username}/{age}")
-async def get_user_data(username: str, age: int) -> dict:
-    return {"Имя": username, "Возраст": age}
-    #Имя: < username >, Возраст: < age > ".
+async def get_user_data(username: str, age: str) -> str:
+    return f"Информация о пользователе. Имя: '{username}', Возраст: {age}."
 
 @app.get("/user/{user_id}")
-async def get_user(user_id: int) -> dict:
-    return {"user_id": f"Вы вошли как пользователь № {user_id}"}
+async def get_user(user_id: str) -> str:
+    return "Вы вошли как пользователь № " + user_id
+
+
+# uvicorn Module_16_1:app --reload
