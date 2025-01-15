@@ -38,13 +38,12 @@ async def root() -> str:
 async def get_admin() -> str:
     return "Вы вошли как администратор"
 
-@app.get("/user/{username}/{age}")
-async def get_user_data(username: str, age: str) -> str:
-    return f"Информация о пользователе. Имя: '{username}', Возраст: {age}."
-
 @app.get("/user/{user_id}")
 async def get_user(user_id: str) -> str:
     return "Вы вошли как пользователь № " + user_id
 
+@app.get("/user")
+async def get_user_data(username: str, age: str) -> str:
+    return f"Информация о пользователе. Имя: 'Dmitriy', Возраст: 59."
 
 # uvicorn Module_16_1:app --reload
