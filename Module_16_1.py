@@ -44,6 +44,6 @@ async def get_user(user_id: str) -> str:
 
 @app.get("/user")
 async def get_user_data(username: str, age: str) -> str:
-    return f"Информация о пользователе. Имя: 'Dmitriy', Возраст: 59."
+    return f"Информация о пользователе. Имя: '{username}', Возраст: {age}."
 
 # uvicorn Module_16_1:app --reload
